@@ -70,99 +70,171 @@ def get_base(thing, **kwargs):
     #pos = copy.deepcopy(pos)
     #pos[2] += -20
 
-    dep = 80
-    wid_total = 215
+    dep_total = 80
+    wid_total = 220
     wid = wid_total
-    hei_total = 215
+    hei_total = 220
     hei = hei_total
     clear = 3
     ratio = 0.4142
 
+    depth_top = 16
+
+    deets = []
+
+    dep = 7
+    clear = 9
+    deet = {"dep":dep,"clear":clear}
+    deets.append(deet)
+
+    dep = dep_total - dep - depth_top
+    clear = 6
+    deet = {"dep":dep,"clear":clear}
+    deets.append(deet)
+
+    dep = depth_top
+    clear = 1
+    deet = {"dep":dep,"clear":clear}
+    deets.append(deet)
 
     #add plate
-    p3 = copy.deepcopy(kwargs)
-    p3["type"] = "p"
-    p3["shape"] = f"rounded_rectangle"    
-    w = wid - clear
-    h = (hei * ratio) - clear
-    d = dep
-    size = [w,h,d]
-    p3["size"] = size    
-    #p3["m"] = "#" 
-    p3["radius"] = 0.1 
-    pos1 = copy.deepcopy(pos)         
-    p3["pos"] = pos1
+    z_current = 0
+    if True:
+        for deet in deets:
+            dep = deet["dep"]
+            clear = deet["clear"]
+            p3 = copy.deepcopy(kwargs)
+            p3["type"] = "p"
+            p3["shape"] = f"rounded_rectangle"    
+            w = wid - clear
+            h = (hei - clear) * ratio
+            d = dep
+            size = [w,h,d]
+            p3["size"] = size    
+            #p3["m"] = "#" 
+            p3["radius"] = 0.1 
+            pos1 = copy.deepcopy(pos)                        
+            pos1[2] += z_current  
+            p3["pos"] = pos1
 
 
-    rots = []
-    rots.append([0,0,0])
-    rots.append([0,0,45])
-    rots.append([0,0,-45])
-    rots.append([0,0,90])
-    for rot in rots:
-        p4 = copy.deepcopy(p3)
-        p4["rot"] = rot
-        oobb_base.append_full(thing,**p4)
-    
-    #add base cutout
-    dep_inset = 7
-    dep = dep_inset
-    wid = 170
-    hei = 170
-    clear = 2
-    ratio = 0.4142        
-    p3 = copy.deepcopy(kwargs)
-    p3["type"] = "n"
-    p3["shape"] = f"rounded_rectangle"    
-    w = wid + clear
-    h = (hei * ratio) + clear
-    d = dep
-    size = [w,h,d]
-    p3["size"] = size    
-    #p3["m"] = "#" 
-    p3["radius"] = 1 
-    pos1 = copy.deepcopy(pos)         
-    p3["pos"] = pos1
-
-
-    rots = []
-    rots.append([0,0,0])
-    rots.append([0,0,45])
-    rots.append([0,0,-45])
-    rots.append([0,0,90])
-    for rot in rots:
-        p4 = copy.deepcopy(p3)
-        p4["rot"] = rot
-        oobb_base.append_full(thing,**p4)
-        
-    #add cutouts for tabs    
-    dep = 22
-    wid = 300
-    hei = 2        
-    p3 = copy.deepcopy(kwargs)
-    p3["type"] = "n"
-    p3["shape"] = f"rounded_rectangle"    
-    w = wid
-    h = hei
-    d = dep
-    size = [w,h,d]
-    p3["size"] = size    
-    #p3["m"] = "#" 
-    p3["radius"] = 1 
-    pos1 = copy.deepcopy(pos)         
-    p3["pos"] = pos1
-
-
-    rots = []
-    rots.append([0,0,0])
-    rots.append([0,0,45])
-    rots.append([0,0,-45])
-    rots.append([0,0,90])
-    for rot in rots:
-        p4 = copy.deepcopy(p3)
-        p4["rot"] = rot
-        oobb_base.append_full(thing,**p4)
+            rots = []
+            rots.append([0,0,0])
+            rots.append([0,0,45])
+            rots.append([0,0,-45])
+            rots.append([0,0,90])
+            for rot in rots:
+                p4 = copy.deepcopy(p3)
+                p4["rot"] = rot
+                oobb_base.append_full(thing,**p4)
+            z_current += dep
             
+    #add base cutout
+    if True:    
+        dep_inset = 7
+        dep = dep_inset
+        wid = 175
+        hei = 175
+        clear = 2
+        ratio = 0.4142        
+        p3 = copy.deepcopy(kwargs)
+        p3["type"] = "n"
+        p3["shape"] = f"rounded_rectangle"    
+        w = wid + clear
+        h = (hei * ratio) + clear
+        d = dep
+        size = [w,h,d]
+        p3["size"] = copy.deepcopy(size)
+        #p3["m"] = "#" 
+        p3["radius"] = 1 
+        pos1 = copy.deepcopy(pos)    
+        p3["pos"] = pos1
+
+
+        rots = []
+        rots.append([0,0,0])
+        rots.append([0,0,45])
+        rots.append([0,0,-45])
+        rots.append([0,0,90])
+        for rot in rots:
+            p4 = copy.deepcopy(p3)
+            p4["rot"] = rot
+            oobb_base.append_full(thing,**p4)
+            
+    #add cutouts for tabs    
+    if True:
+        dep = 19
+        wid = 10
+        hei = 2        
+        p3 = copy.deepcopy(kwargs)
+        p3["type"] = "n"
+        p3["shape"] = f"rounded_rectangle"    
+        w = wid
+        h = hei
+        d = dep
+        size = [w,h,d]
+        p3["size"] = size    
+        p3["m"] = "#" 
+        p3["radius"] = 1 
+        pos1 = copy.deepcopy(pos)         
+        p3["pos"] = pos1
+
+        shift_1 = wid_total / 2 - wid/2
+        #import math for trigonometry
+        import math
+        #x position after a 45 degrree rotation of wid_total/2
+        shift_2 = shift_1 * math.sin(math.radians(45))
+        deets = []
+        rot = [0,0,0]
+        pos1 = [-shift_1,0,0]
+        deet = {"rot":rot,"pos":pos1}
+        deets.append(deet)
+
+        rot = [0,0,45]
+        pos1 = [-shift_2,-shift_2,0]
+        deet = {"rot":rot,"pos":pos1}
+        deets.append(deet)        
+
+        rot = [0,0,-45]
+        pos1 = [shift_2,-shift_2,0]
+        deet = {"rot":rot,"pos":pos1}
+        deets.append(deet)
+
+        rot = [0,0,90]
+        pos1 = [0,-shift_1,0]
+        deet = {"rot":rot,"pos":pos1}
+        deets.append(deet)
+
+        rot = [0,0,45]
+        pos1 = [shift_2,shift_2,0]
+        deet = {"rot":rot,"pos":pos1}
+        deets.append(deet)
+
+        rot = [0,0,-45]
+        pos1 = [-shift_2,shift_2,0]
+        deet = {"rot":rot,"pos":pos1}
+        deets.append(deet)
+
+        rot = [0,0,180]
+        pos1 = [shift_1,0,0]
+        deet = {"rot":rot,"pos":pos1}
+        deets.append(deet)
+
+        rot = [0,0,90]
+        pos1 = [0,shift_1,0]
+        deet = {"rot":rot,"pos":pos1}
+        deets.append(deet)
+
+        for deet in deets:
+            p4 = copy.deepcopy(p3)
+            p4["rot"] = deet["rot"]
+            pos1 = copy.deepcopy(deet["pos"])
+            pos1[0] += pos[0]
+            pos1[1] += pos[1]
+            pos1[2] += pos[2]
+            p4["pos"] = pos1
+            oobb_base.append_full(thing,**p4)
+                
 
     #add cutouts for oobb
     
