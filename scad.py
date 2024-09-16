@@ -15,7 +15,7 @@ def make_scad(**kwargs):
         #filter = "test"
 
         kwargs["save_type"] = "none"
-        #kwargs["save_type"] = "all"
+        kwargs["save_type"] = "all"
         
         kwargs["overwrite"] = True
         
@@ -64,21 +64,137 @@ def make_scad(**kwargs):
 def get_base(thing, **kwargs):
 
     depth = kwargs.get("thickness", 4)
-    prepare_print = kwargs.get("prepare_print", False)
+    prepare_print = kwargs.get("prepare_print", True)
 
     pos = kwargs.get("pos", [0, 0, 0])
     #pos = copy.deepcopy(pos)
     #pos[2] += -20
 
+    dep = 80
+    wid_total = 215
+    wid = wid_total
+    hei_total = 215
+    hei = hei_total
+    clear = 3
+    ratio = 0.4142
+
+
     #add plate
     p3 = copy.deepcopy(kwargs)
     p3["type"] = "p"
-    p3["shape"] = f"oobb_plate"    
-    p3["depth"] = depth
-    #p3["m"] = "#"
+    p3["shape"] = f"rounded_rectangle"    
+    w = wid - clear
+    h = (hei * ratio) - clear
+    d = dep
+    size = [w,h,d]
+    p3["size"] = size    
+    #p3["m"] = "#" 
+    p3["radius"] = 0.1 
     pos1 = copy.deepcopy(pos)         
     p3["pos"] = pos1
-    oobb_base.append_full(thing,**p3)
+
+
+    rots = []
+    rots.append([0,0,0])
+    rots.append([0,0,45])
+    rots.append([0,0,-45])
+    rots.append([0,0,90])
+    for rot in rots:
+        p4 = copy.deepcopy(p3)
+        p4["rot"] = rot
+        oobb_base.append_full(thing,**p4)
+    
+    #add base cutout
+    dep_inset = 7
+    dep = dep_inset
+    wid = 170
+    hei = 170
+    clear = 2
+    ratio = 0.4142        
+    p3 = copy.deepcopy(kwargs)
+    p3["type"] = "n"
+    p3["shape"] = f"rounded_rectangle"    
+    w = wid + clear
+    h = (hei * ratio) + clear
+    d = dep
+    size = [w,h,d]
+    p3["size"] = size    
+    #p3["m"] = "#" 
+    p3["radius"] = 1 
+    pos1 = copy.deepcopy(pos)         
+    p3["pos"] = pos1
+
+
+    rots = []
+    rots.append([0,0,0])
+    rots.append([0,0,45])
+    rots.append([0,0,-45])
+    rots.append([0,0,90])
+    for rot in rots:
+        p4 = copy.deepcopy(p3)
+        p4["rot"] = rot
+        oobb_base.append_full(thing,**p4)
+        
+    #add cutouts for tabs    
+    dep = 22
+    wid = 300
+    hei = 2        
+    p3 = copy.deepcopy(kwargs)
+    p3["type"] = "n"
+    p3["shape"] = f"rounded_rectangle"    
+    w = wid
+    h = hei
+    d = dep
+    size = [w,h,d]
+    p3["size"] = size    
+    #p3["m"] = "#" 
+    p3["radius"] = 1 
+    pos1 = copy.deepcopy(pos)         
+    p3["pos"] = pos1
+
+
+    rots = []
+    rots.append([0,0,0])
+    rots.append([0,0,45])
+    rots.append([0,0,-45])
+    rots.append([0,0,90])
+    for rot in rots:
+        p4 = copy.deepcopy(p3)
+        p4["rot"] = rot
+        oobb_base.append_full(thing,**p4)
+            
+
+    #add cutouts for oobb
+    
+    dep_oobb = 80-dep_inset
+    dep = 80
+    sizes = []
+    sizes.append([14, 6])
+    sizes.append([12, 8])
+    sizes.append([10, 10])
+    sizes.append([8, 12])
+    sizes.append([6, 14])
+
+    if True:
+        for s in sizes:
+            wid_oobb = s[0]
+            hei_oobb = s[1]
+            p3 = copy.deepcopy(kwargs)
+            p3["type"] = "n"
+            p3["shape"] = f"oobb_plate"    
+            p3["width"] = wid_oobb
+            p3["height"] = hei_oobb
+            p3["depth"] = dep_oobb
+            #p3["m"] = "#"
+            p3["zz"] = "top"
+            pos1 = copy.deepcopy(pos)        
+            pos1[2] += dep
+            p3["pos"] = pos1
+            oobb_base.append_full(thing,**p3)
+
+    
+    
+    
     #add holes
     p3 = copy.deepcopy(kwargs)
     p3["type"] = "p"
@@ -89,7 +205,7 @@ def get_base(thing, **kwargs):
     #p3["m"] = "#"
     pos1 = copy.deepcopy(pos)         
     p3["pos"] = pos1
-    oobb_base.append_full(thing,**p3)
+    #oobb_base.append_full(thing,**p3)
 
     if prepare_print:
         #put into a rotation object
@@ -103,7 +219,7 @@ def get_base(thing, **kwargs):
         return_value_2["rot"] = [180,0,0]
         return_value_2["objects"] = components_second
         
-        thing["components"].append(return_value_2)
+        #thing["components"].append(return_value_2)
 
     
         #add slice # top
@@ -111,6 +227,10 @@ def get_base(thing, **kwargs):
         p3["type"] = "n"
         p3["shape"] = f"oobb_slice"
         #p3["m"] = "#"
+        pos1 = copy.deepcopy(pos)
+        pos1[0] += -wid_total/2 + 25
+        pos1[1] += -500/2
+        p3["pos"] = pos1
         oobb_base.append_full(thing,**p3)
     
 ###### utilities
