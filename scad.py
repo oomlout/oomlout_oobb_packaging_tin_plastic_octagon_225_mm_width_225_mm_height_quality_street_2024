@@ -70,7 +70,7 @@ def get_base(thing, **kwargs):
     #pos = copy.deepcopy(pos)
     #pos[2] += -20
 
-    dep_total = 80
+    dep_total = 70
     wid_total = 220
     wid = wid_total
     hei_total = 220
@@ -133,8 +133,8 @@ def get_base(thing, **kwargs):
     if True:    
         dep_inset = 7
         dep = dep_inset
-        wid = 175
-        hei = 175
+        wid = 180
+        hei = 180
         clear = 2
         ratio = 0.4142        
         p3 = copy.deepcopy(kwargs)
@@ -163,7 +163,7 @@ def get_base(thing, **kwargs):
             
     #add cutouts for tabs    
     if True:
-        dep = 19
+        dep = 22
         wid = 10
         hei = 2        
         p3 = copy.deepcopy(kwargs)
@@ -174,7 +174,7 @@ def get_base(thing, **kwargs):
         d = dep
         size = [w,h,d]
         p3["size"] = size    
-        p3["m"] = "#" 
+        #p3["m"] = "#" 
         p3["radius"] = 1 
         pos1 = copy.deepcopy(pos)         
         p3["pos"] = pos1
