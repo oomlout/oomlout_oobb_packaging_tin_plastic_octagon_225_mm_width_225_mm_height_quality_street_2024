@@ -14,7 +14,7 @@ def make_scad(**kwargs):
         filter = ""
         #filter = "test"
 
-        kwargs["save_type"] = "none"
+        #kwargs["save_type"] = "none"
         kwargs["save_type"] = "all"
         
         kwargs["overwrite"] = True
@@ -64,6 +64,7 @@ def make_scad(**kwargs):
 def get_base(thing, **kwargs):
 
     depth = kwargs.get("thickness", 4)
+    #prepare_print = kwargs.get("prepare_print", False)
     prepare_print = kwargs.get("prepare_print", True)
 
     pos = kwargs.get("pos", [0, 0, 0])
@@ -82,7 +83,7 @@ def get_base(thing, **kwargs):
 
     deets = []
 
-    dep = 7
+    dep = 25
     clear = 9
     deet = {"dep":dep,"clear":clear}
     deets.append(deet)
@@ -105,19 +106,17 @@ def get_base(thing, **kwargs):
             clear = deet["clear"]
             p3 = copy.deepcopy(kwargs)
             p3["type"] = "p"
-            p3["shape"] = f"rounded_rectangle"    
-            w = wid - clear
-            h = (hei - clear) * ratio
-            d = dep
-            size = [w,h,d]
-            p3["size"] = size    
+            p3["shape"] = f"rounded_octagon"    
+            p3["width"] = wid - clear
+            p3["depth"] = dep
             #p3["m"] = "#" 
-            p3["radius"] = 0.1 
+            p3["radius"] = 20 
             pos1 = copy.deepcopy(pos)                        
             pos1[2] += z_current  
             p3["pos"] = pos1
+            oobb_base.append_full(thing,**p3)
 
-
+            """
             rots = []
             rots.append([0,0,0])
             rots.append([0,0,45])
@@ -127,6 +126,7 @@ def get_base(thing, **kwargs):
                 p4 = copy.deepcopy(p3)
                 p4["rot"] = rot
                 oobb_base.append_full(thing,**p4)
+            """
             z_current += dep
             
     #add base cutout
