@@ -84,7 +84,7 @@ def get_base(thing, **kwargs):
     deets = []
 
     dep = 25
-    clear = 9
+    clear = 15
     deet = {"dep":dep,"clear":clear}
     deets.append(deet)
 
@@ -271,7 +271,8 @@ def get_base(thing, **kwargs):
         #slice_type = "none"
         #slice_type = "one_corner"
         #slice_type = "half"
-        slice_type = "quarter"
+        #slice_type = "quarter"
+        slice_type = ["bottom_layer","quarter"]
     
         #add slice # top
         p3 = copy.deepcopy(kwargs)
@@ -279,17 +280,17 @@ def get_base(thing, **kwargs):
         p3["shape"] = f"oobb_slice"
         #p3["m"] = "#"
         pos1 = copy.deepcopy(pos)
-        if slice_type == "half" or slice_type == "quarter":
+        if "half" in slice_type or "quarter" in slice_type:
             pos1[0] += 0
             pos1[1] += -500/2
-        elif slice_type == "one_corner":
+        elif "one_corner" in slice_type:
             pos1[0] += -wid_total/2 + 25
             pos1[1] += -500/2
         p3["pos"] = pos1
         if slice_type != "none":
             oobb_base.append_full(thing,**p3)
         
-        if slice_type == "quarter":
+        if "quarter" in slice_type:
             p4 = copy.deepcopy(p3)
             pos1 = copy.deepcopy(pos)
             pos1[0] += -500/4
@@ -298,6 +299,16 @@ def get_base(thing, **kwargs):
             #p4["m"] = "#"
             oobb_base.append_full(thing,**p4)
     
+        if "bottom_layer" in slice_type:
+            p4 = copy.deepcopy(p3)
+            pos1 = copy.deepcopy(pos)
+            pos1[0] += 0
+            pos1[1] += 0            
+            pos1[2] += 1
+            p4["pos"] = pos1
+            #p4["m"] = "#"
+            oobb_base.append_full(thing,**p4)
+
 ###### utilities
 
 
