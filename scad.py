@@ -14,7 +14,7 @@ def make_scad(**kwargs):
         filter = ""
         #filter = "test"
 
-        #kwargs["save_type"] = "none"
+        kwargs["save_type"] = "none"
         kwargs["save_type"] = "all"
         
         kwargs["overwrite"] = True
@@ -116,50 +116,25 @@ def get_base(thing, **kwargs):
             p3["pos"] = pos1
             oobb_base.append_full(thing,**p3)
 
-            """
-            rots = []
-            rots.append([0,0,0])
-            rots.append([0,0,45])
-            rots.append([0,0,-45])
-            rots.append([0,0,90])
-            for rot in rots:
-                p4 = copy.deepcopy(p3)
-                p4["rot"] = rot
-                oobb_base.append_full(thing,**p4)
-            """
+            
             z_current += dep
             
     #add base cutout
     if True:    
         dep_inset = 7
         dep = dep_inset
-        wid = 180
-        hei = 180
-        clear = 2
-        ratio = 0.4142        
         p3 = copy.deepcopy(kwargs)
         p3["type"] = "n"
-        p3["shape"] = f"rounded_rectangle"    
-        w = wid + clear
-        h = (hei * ratio) + clear
-        d = dep
-        size = [w,h,d]
-        p3["size"] = copy.deepcopy(size)
+        p3["shape"] = f"rounded_octagon"    
+        p3["width"] = 185
+        p3["depth"] = dep        
         #p3["m"] = "#" 
-        p3["radius"] = 1 
+        p3["radius"] = 5
         pos1 = copy.deepcopy(pos)    
         p3["pos"] = pos1
 
 
-        rots = []
-        rots.append([0,0,0])
-        rots.append([0,0,45])
-        rots.append([0,0,-45])
-        rots.append([0,0,90])
-        for rot in rots:
-            p4 = copy.deepcopy(p3)
-            p4["rot"] = rot
-            oobb_base.append_full(thing,**p4)
+        oobb_base.append_full(thing,**p3)
             
     #add cutouts for tabs    
     if True:
@@ -293,6 +268,10 @@ def get_base(thing, **kwargs):
         
         #thing["components"].append(return_value_2)
 
+        #slice_type = "none"
+        #slice_type = "one_corner"
+        #slice_type = "half"
+        slice_type = "quarter"
     
         #add slice # top
         p3 = copy.deepcopy(kwargs)
@@ -300,10 +279,24 @@ def get_base(thing, **kwargs):
         p3["shape"] = f"oobb_slice"
         #p3["m"] = "#"
         pos1 = copy.deepcopy(pos)
-        pos1[0] += -wid_total/2 + 25
-        pos1[1] += -500/2
+        if slice_type == "half" or slice_type == "quarter":
+            pos1[0] += 0
+            pos1[1] += -500/2
+        elif slice_type == "one_corner":
+            pos1[0] += -wid_total/2 + 25
+            pos1[1] += -500/2
         p3["pos"] = pos1
-        oobb_base.append_full(thing,**p3)
+        if slice_type != "none":
+            oobb_base.append_full(thing,**p3)
+        
+        if slice_type == "quarter":
+            p4 = copy.deepcopy(p3)
+            pos1 = copy.deepcopy(pos)
+            pos1[0] += -500/4
+            pos1[1] += 0            
+            p4["pos"] = pos1
+            #p4["m"] = "#"
+            oobb_base.append_full(thing,**p4)
     
 ###### utilities
 
