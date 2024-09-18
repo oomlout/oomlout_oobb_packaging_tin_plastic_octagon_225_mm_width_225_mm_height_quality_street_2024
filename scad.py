@@ -83,8 +83,8 @@ def get_base(thing, **kwargs):
 
     deets = []
 
-    dep = 25
-    clear = 9
+    dep = 7
+    clear = 12
     deet = {"dep":dep,"clear":clear}
     deets.append(deet)
 
@@ -334,7 +334,7 @@ def get_base(thing, **kwargs):
             pos1 = copy.deepcopy(pos)
             pos1[0] += 0
             pos1[1] += 0            
-            pos1[2] += 12
+            pos1[2] += 9
             p4["pos"] = pos1
             #p4["m"] = "#"
             oobb_base.append_full(thing,**p4)
