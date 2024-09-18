@@ -72,9 +72,9 @@ def get_base(thing, **kwargs):
     #pos[2] += -20
 
     dep_total = 70
-    wid_total = 220
+    wid_total = 215
     wid = wid_total
-    hei_total = 220
+    hei_total = 215
     hei = hei_total
     clear = 3
     ratio = 0.4142
