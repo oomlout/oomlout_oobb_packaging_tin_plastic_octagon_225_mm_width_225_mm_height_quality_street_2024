@@ -14,7 +14,7 @@ def make_scad(**kwargs):
         filter = ""
         #filter = "test"
 
-        #kwargs["save_type"] = "none"
+        kwargs["save_type"] = "none"
         kwargs["save_type"] = "all"
         
         kwargs["overwrite"] = True
@@ -84,12 +84,12 @@ def get_base(thing, **kwargs):
     deets = []
 
     dep = 25
-    clear = 7
+    clear = 9
     deet = {"dep":dep,"clear":clear}
     deets.append(deet)
 
     dep = dep_total - dep - depth_top
-    clear = 6
+    clear = 9
     deet = {"dep":dep,"clear":clear}
     deets.append(deet)
 
@@ -127,10 +127,11 @@ def get_base(thing, **kwargs):
         p3["type"] = "n"
         p3["shape"] = f"rounded_octagon"    
         p3["width"] = 185
-        p3["depth"] = dep        
+        p3["depth"] = 500#dep        
         #p3["m"] = "#" 
         p3["radius"] = 5
-        pos1 = copy.deepcopy(pos)    
+        pos1 = copy.deepcopy(pos) 
+
         p3["pos"] = pos1
 
 
@@ -216,11 +217,10 @@ def get_base(thing, **kwargs):
     dep_oobb = 80-dep_inset
     dep = 80
     sizes = []
-    sizes.append([14, 6])
-    sizes.append([12, 8])
-    sizes.append([10, 10])
-    sizes.append([8, 12])
-    sizes.append([6, 14])
+    sizes.append([13, 7])
+    
+    sizes.append([9, 11])
+    sizes.append([7, 13])
 
     if True:
         for s in sizes:
@@ -241,18 +241,20 @@ def get_base(thing, **kwargs):
 
     #add m6 bolts
     if True:
-        shift_a_1 = 94.91
-        shift_b_1 = 49.407
+        shift_a_1 = 78
+        shift_b_1 = 63
         points = []
         points.append([shift_a_1,shift_b_1])
         points.append([-shift_a_1,shift_b_1])
         points.append([-shift_a_1,-shift_b_1])
         points.append([shift_a_1,-shift_b_1])
+        shift_a_1 = 90
+        shift_b_1 = 45
+        #points.append([shift_a_1,shift_b_1])
+        #points.append([-shift_a_1,shift_b_1])
+        #points.append([-shift_a_1,-shift_b_1])
+        #points.append([shift_a_1,-shift_b_1])
 
-        points.append([shift_b_1,shift_a_1])
-        points.append([-shift_b_1,shift_a_1])
-        points.append([-shift_b_1,-shift_a_1])
-        points.append([shift_b_1,-shift_a_1])
 
         for point in points:
             p3 = copy.deepcopy(kwargs)
