@@ -84,7 +84,7 @@ def get_base(thing, **kwargs):
     deets = []
 
     dep = 7
-    clear = 12
+    clear = 16
     deet = {"dep":dep,"clear":clear}
     deets.append(deet)
 
