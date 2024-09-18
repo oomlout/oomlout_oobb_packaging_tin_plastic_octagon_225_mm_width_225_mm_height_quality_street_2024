@@ -14,7 +14,7 @@ def make_scad(**kwargs):
         filter = ""
         #filter = "test"
 
-        kwargs["save_type"] = "none"
+        #kwargs["save_type"] = "none"
         kwargs["save_type"] = "all"
         
         kwargs["overwrite"] = True
@@ -84,7 +84,7 @@ def get_base(thing, **kwargs):
     deets = []
 
     dep = 25
-    clear = 15
+    clear = 7
     deet = {"dep":dep,"clear":clear}
     deets.append(deet)
 
@@ -239,7 +239,35 @@ def get_base(thing, **kwargs):
             p3["pos"] = pos1
             oobb_base.append_full(thing,**p3)
 
-    
+    #add m6 bolts
+    if True:
+        shift_a_1 = 94.91
+        shift_b_1 = 49.407
+        points = []
+        points.append([shift_a_1,shift_b_1])
+        points.append([-shift_a_1,shift_b_1])
+        points.append([-shift_a_1,-shift_b_1])
+        points.append([shift_a_1,-shift_b_1])
+
+        points.append([shift_b_1,shift_a_1])
+        points.append([-shift_b_1,shift_a_1])
+        points.append([-shift_b_1,-shift_a_1])
+        points.append([shift_b_1,-shift_a_1])
+
+        for point in points:
+            p3 = copy.deepcopy(kwargs)
+            p3["type"] = "n"
+            p3["shape"] = f"oobb_nut"    
+            p3["radius_name"] = "m6"
+            p3["hole"] = True
+            p3["pos"] = copy.deepcopy(pos)
+            p3["pos"][0] += point[0]
+            p3["pos"][1] += point[1]
+            p3["pos"][2] += 0
+            p3["m"] = "#"
+            oobb_base.append_full(thing,**p3)
+
+
     
     
     #add holes
@@ -304,7 +332,7 @@ def get_base(thing, **kwargs):
             pos1 = copy.deepcopy(pos)
             pos1[0] += 0
             pos1[1] += 0            
-            pos1[2] += 1
+            pos1[2] += 12
             p4["pos"] = pos1
             #p4["m"] = "#"
             oobb_base.append_full(thing,**p4)
