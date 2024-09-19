@@ -5,55 +5,55 @@ difference() {
 	union() {
 		hull() {
 			translate(v = [81.0223590022, 33.5605599542, 0]) {
-				cylinder(h = 7, r = 20);
+				cylinder(h = 5, r = 20);
 			}
 			translate(v = [33.5605599542, 81.0223590022, 0]) {
-				cylinder(h = 7, r = 20);
+				cylinder(h = 5, r = 20);
 			}
 			translate(v = [-33.5605599542, 81.0223590022, 0]) {
-				cylinder(h = 7, r = 20);
+				cylinder(h = 5, r = 20);
 			}
 			translate(v = [-81.0223590022, 33.5605599542, 0]) {
-				cylinder(h = 7, r = 20);
+				cylinder(h = 5, r = 20);
 			}
 			translate(v = [-81.0223590022, -33.5605599542, 0]) {
-				cylinder(h = 7, r = 20);
+				cylinder(h = 5, r = 20);
 			}
 			translate(v = [-33.5605599542, -81.0223590022, 0]) {
-				cylinder(h = 7, r = 20);
+				cylinder(h = 5, r = 20);
 			}
 			translate(v = [33.5605599542, -81.0223590022, 0]) {
-				cylinder(h = 7, r = 20);
+				cylinder(h = 5, r = 20);
 			}
 			translate(v = [81.0223590022, -33.5605599542, 0]) {
-				cylinder(h = 7, r = 20);
+				cylinder(h = 5, r = 20);
 			}
 		}
-		translate(v = [0, 0, 7]) {
+		translate(v = [0, 0, 5]) {
 			hull() {
 				translate(v = [84.5223572312, 35.0103066889, 0]) {
-					cylinder(h = 47, r = 20);
+					cylinder(h = 49, r = 20);
 				}
 				translate(v = [35.0103066889, 84.5223572312, 0]) {
-					cylinder(h = 47, r = 20);
+					cylinder(h = 49, r = 20);
 				}
 				translate(v = [-35.0103066889, 84.5223572312, 0]) {
-					cylinder(h = 47, r = 20);
+					cylinder(h = 49, r = 20);
 				}
 				translate(v = [-84.5223572312, 35.0103066889, 0]) {
-					cylinder(h = 47, r = 20);
+					cylinder(h = 49, r = 20);
 				}
 				translate(v = [-84.5223572312, -35.0103066889, 0]) {
-					cylinder(h = 47, r = 20);
+					cylinder(h = 49, r = 20);
 				}
 				translate(v = [-35.0103066889, -84.5223572312, 0]) {
-					cylinder(h = 47, r = 20);
+					cylinder(h = 49, r = 20);
 				}
 				translate(v = [35.0103066889, -84.5223572312, 0]) {
-					cylinder(h = 47, r = 20);
+					cylinder(h = 49, r = 20);
 				}
 				translate(v = [84.5223572312, -35.0103066889, 0]) {
-					cylinder(h = 47, r = 20);
+					cylinder(h = 49, r = 20);
 				}
 			}
 		}
