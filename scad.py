@@ -321,7 +321,8 @@ def get_base(thing, **kwargs):
         #slice_type = "quarter"
         #slice_type = ["bottom_layer","quarter"]
         #slice_type = ["top_layer","quarter"]
-        slice_type = "top_layer"
+        #slice_type = "top_layer"
+        slice_type = "bottom_layer"
     
         #add slice # top
         p3 = copy.deepcopy(kwargs)
