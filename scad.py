@@ -15,7 +15,7 @@ def make_scad(**kwargs):
         #filter = "test"
 
         kwargs["save_type"] = "none"
-        kwargs["save_type"] = "all"
+        #kwargs["save_type"] = "all"
         
         kwargs["overwrite"] = True
         
@@ -262,10 +262,27 @@ def get_base(thing, **kwargs):
             p3["shape"] = f"oobb_nut"    
             p3["radius_name"] = "m6"
             p3["hole"] = True
-            p3["pos"] = copy.deepcopy(pos)
-            p3["pos"][0] += point[0]
-            p3["pos"][1] += point[1]
-            p3["pos"][2] += 0
+            pos1 = copy.deepcopy(pos)
+            pos1[0] += point[0]
+            pos1[1] += point[1]
+            pos1[2] += 0
+            p3["pos"] = pos1
+            p3["m"] = "#"
+            oobb_base.append_full(thing,**p3)
+
+            #add cylinder clearance for nut
+            p3 = copy.deepcopy(kwargs)
+            p3["type"] = "n"
+            p3["shape"] = f"oobb_cylinder"
+            p3["radius"] = 8
+            p3["depth"] = 6
+            p3["hole"] = True
+            pos1 = copy.deepcopy(pos)
+            pos1[0] += point[0]
+            pos1[1] += point[1]
+            pos1[2] += dep_total
+            p3["pos"] = pos1
+            p3["zz"] = "top"
             p3["m"] = "#"
             oobb_base.append_full(thing,**p3)
 
@@ -302,7 +319,8 @@ def get_base(thing, **kwargs):
         #slice_type = "one_corner"
         #slice_type = "half"
         #slice_type = "quarter"
-        slice_type = ["bottom_layer","quarter"]
+        #slice_type = ["bottom_layer","quarter"]
+        slice_type = ["top_layer","quarter"]
     
         #add slice # top
         p3 = copy.deepcopy(kwargs)
@@ -336,6 +354,16 @@ def get_base(thing, **kwargs):
             pos1[1] += 0            
             pos1[2] += 9
             p4["pos"] = pos1
+            #p4["m"] = "#"
+            oobb_base.append_full(thing,**p4)
+        elif "top_layer" in slice_type:
+            p4 = copy.deepcopy(p3)
+            pos1 = copy.deepcopy(pos)
+            pos1[0] += 0
+            pos1[1] += 0            
+            pos1[2] += dep_total- 20            
+            p4["pos"] = pos1
+            p4["zz"] = "top"
             #p4["m"] = "#"
             oobb_base.append_full(thing,**p4)
 
