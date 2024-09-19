@@ -15,7 +15,7 @@ def make_scad(**kwargs):
         #filter = "test"
 
         kwargs["save_type"] = "none"
-        #kwargs["save_type"] = "all"
+        kwargs["save_type"] = "all"
         
         kwargs["overwrite"] = True
         
@@ -320,7 +320,8 @@ def get_base(thing, **kwargs):
         #slice_type = "half"
         #slice_type = "quarter"
         #slice_type = ["bottom_layer","quarter"]
-        slice_type = ["top_layer","quarter"]
+        #slice_type = ["top_layer","quarter"]
+        slice_type = "top_layer"
     
         #add slice # top
         p3 = copy.deepcopy(kwargs)
@@ -331,12 +332,14 @@ def get_base(thing, **kwargs):
         if "half" in slice_type or "quarter" in slice_type:
             pos1[0] += 0
             pos1[1] += -500/2
+            p3["pos"] = pos1
+            oobb_base.append_full(thing,**p3)
         elif "one_corner" in slice_type:
             pos1[0] += -wid_total/2 + 25
             pos1[1] += -500/2
-        p3["pos"] = pos1
-        if slice_type != "none":
+            p3["pos"] = pos1
             oobb_base.append_full(thing,**p3)
+        
         
         if "quarter" in slice_type:
             p4 = copy.deepcopy(p3)
