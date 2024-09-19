@@ -126,7 +126,7 @@ def get_base(thing, **kwargs):
         p3 = copy.deepcopy(kwargs)
         p3["type"] = "n"
         p3["shape"] = f"rounded_octagon"    
-        p3["width"] = 185
+        p3["width"] = 175
         p3["depth"] = 500#dep        
         #p3["m"] = "#" 
         p3["radius"] = 5
@@ -241,8 +241,8 @@ def get_base(thing, **kwargs):
 
     #add m6 bolts
     if True:
-        shift_a_1 = 78
-        shift_b_1 = 63
+        shift_a_1 = 74
+        shift_b_1 = 59
         points = []
         points.append([shift_a_1,shift_b_1])
         points.append([-shift_a_1,shift_b_1])
