@@ -3,6 +3,8 @@ import opsc
 import oobb
 import oobb_base
 
+clearance_internal = 1.5
+
 def main(**kwargs):
     make_scad(**kwargs)
 
@@ -14,7 +16,7 @@ def make_scad(**kwargs):
         filter = ""
         #filter = "test"
 
-        kwargs["save_type"] = "none"
+        #kwargs["save_type"] = "none"
         kwargs["save_type"] = "all"
         
         kwargs["overwrite"] = True
@@ -83,8 +85,10 @@ def get_base(thing, **kwargs):
 
     deets = []
 
+
     dep = 5
-    clear = 16
+    #clear = 16
+    clear = 60
     deet = {"dep":dep,"clear":clear}
     deets.append(deet)
 
@@ -121,12 +125,12 @@ def get_base(thing, **kwargs):
             
     #add base cutout
     if True:    
-        dep_inset = 7
+        dep_inset = 5
         dep = dep_inset
         p3 = copy.deepcopy(kwargs)
         p3["type"] = "n"
         p3["shape"] = f"rounded_octagon"    
-        p3["width"] = 175
+        p3["width"] = 175        
         p3["depth"] = 500#dep        
         #p3["m"] = "#" 
         p3["radius"] = 5
@@ -217,10 +221,18 @@ def get_base(thing, **kwargs):
     dep_oobb = 80-dep_inset
     dep = 80
     sizes = []
+    """
+    #max sizes
     sizes.append([13, 7])
     
     sizes.append([9, 11])
     sizes.append([7, 13])
+    """
+    #min sizes    
+    sizes.append([12, 6])
+    
+    #sizes.append([8, 10])
+    sizes.append([6, 12])
 
     if True:
         for s in sizes:
@@ -229,8 +241,8 @@ def get_base(thing, **kwargs):
             p3 = copy.deepcopy(kwargs)
             p3["type"] = "n"
             p3["shape"] = f"oobb_plate"    
-            p3["width"] = wid_oobb
-            p3["height"] = hei_oobb
+            p3["width"] = wid_oobb + (clearance_internal / 15)
+            p3["height"] = hei_oobb + (clearance_internal / 15)
             p3["depth"] = dep_oobb
             #p3["m"] = "#"
             p3["zz"] = "top"
@@ -261,13 +273,13 @@ def get_base(thing, **kwargs):
             p3["type"] = "n"
             p3["shape"] = f"oobb_nut"    
             p3["radius_name"] = "m6"
-            p3["hole"] = True
+            p3["hole"] = True            
             pos1 = copy.deepcopy(pos)
             pos1[0] += point[0]
             pos1[1] += point[1]
             pos1[2] += 0
             p3["pos"] = pos1
-            p3["m"] = "#"
+            #p3["m"] = "#"
             oobb_base.append_full(thing,**p3)
 
             #add cylinder clearance for nut
@@ -275,7 +287,7 @@ def get_base(thing, **kwargs):
             p3["type"] = "n"
             p3["shape"] = f"oobb_cylinder"
             p3["radius"] = 8
-            p3["depth"] = 6
+            p3["depth"] = 5
             p3["hole"] = True
             pos1 = copy.deepcopy(pos)
             pos1[0] += point[0]
@@ -283,7 +295,7 @@ def get_base(thing, **kwargs):
             pos1[2] += dep_total
             p3["pos"] = pos1
             p3["zz"] = "top"
-            p3["m"] = "#"
+            #p3["m"] = "#"
             oobb_base.append_full(thing,**p3)
 
 
@@ -356,7 +368,7 @@ def get_base(thing, **kwargs):
             pos1 = copy.deepcopy(pos)
             pos1[0] += 0
             pos1[1] += 0            
-            pos1[2] += 9
+            pos1[2] += 8
             p4["pos"] = pos1
             #p4["m"] = "#"
             oobb_base.append_full(thing,**p4)
@@ -365,7 +377,7 @@ def get_base(thing, **kwargs):
             pos1 = copy.deepcopy(pos)
             pos1[0] += 0
             pos1[1] += 0            
-            pos1[2] += dep_total- 20            
+            pos1[2] += dep_total- 10           
             p4["pos"] = pos1
             p4["zz"] = "top"
             #p4["m"] = "#"
