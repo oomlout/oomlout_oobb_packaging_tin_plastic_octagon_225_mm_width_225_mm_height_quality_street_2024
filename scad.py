@@ -333,8 +333,8 @@ def get_base(thing, **kwargs):
         #slice_type = "quarter"
         #slice_type = ["bottom_layer","quarter"]
         #slice_type = ["top_layer","quarter"]
-        #slice_type = "top_layer"
-        slice_type = "bottom_layer"
+        slice_type = "top_layer"
+        #slice_type = "bottom_layer"
     
         #add slice # top
         p3 = copy.deepcopy(kwargs)
@@ -382,6 +382,19 @@ def get_base(thing, **kwargs):
             p4["zz"] = "top"
             #p4["m"] = "#"
             oobb_base.append_full(thing,**p4)
+
+
+            p4 = copy.deepcopy(p3)
+            pos1 = copy.deepcopy(pos)
+            pos1[0] += 0
+            pos1[1] += 0            
+            pos1[2] += dep_total- 10 + 3           
+            p4["pos"] = pos1
+            p4["zz"] = "bottom"
+            #p4["m"] = "#"
+            oobb_base.append_full(thing,**p4)
+
+
 
 ###### utilities
 
